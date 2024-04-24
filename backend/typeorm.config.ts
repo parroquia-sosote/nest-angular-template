@@ -12,7 +12,7 @@ const typeOrmConfig: TypeOrmModuleOptions =
   // & SeederOptions
   {
     type: 'postgres',
-    host: process.env.DB_HOST || 'db', // docker-compose service name, in this case, the name of the service is db
+    host: process.env.DB_HOST || 'db', // docker-compose service name, in this case, the name of the service is db, use db only if both services are in the same network, i mean if you are using docker-compose with app service and daba service in the same docker-compose file
     port: parseInt(process.env.DB_PORT, 10) || 5432,
     password: process.env.DB_PASSWORD || 'postgres',
     database: process.env.DB_NAME || 'postgres',
