@@ -8,7 +8,7 @@ export class CreateTableSeeders1713999461685 implements MigrationInterface {
     await queryRunner.query(
       `CREATE TABLE "seeders" (
             "id" SERIAL NOT NULL,
-            "name" character varying NOT NULL,
+            "name" character varying NOT NULL unique,
             "executed" boolean NOT NULL DEFAULT false,
             "created_at" TIMESTAMP NOT NULL DEFAULT now(),
             "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
