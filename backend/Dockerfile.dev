@@ -7,8 +7,8 @@ WORKDIR /app
 # Install app dependencies
 COPY package.json ./
 
-RUN npm install -g @nestjs/cli
-RUN npm install
+RUN bun install -g @nestjs/cli
+RUN bun install
 
 # Bundle app source
 COPY . .
