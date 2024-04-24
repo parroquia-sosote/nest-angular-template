@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as path from 'path';
-// import entities from './src/db/entities';
+import entities from './src/db/entities';
 // import { SeederOptions } from 'typeorm-extension';
 
 const migrationsPath = path.join(process.cwd(), 'src/db/migrations/*{.ts}');
@@ -15,7 +15,7 @@ const typeOrmConfig: TypeOrmModuleOptions =
     database: process.env.DB_NAME || 'postgres',
     username: process.env.DB_USER || 'postgres',
     migrations: [migrationsPath],
-    // entities,
+    entities,
     // synchronize: true,
     // seeds: ['serc/db/seeds/**/*{.ts}'],
     // factories: ['src/db/factories/**/*{.ts}'],
