@@ -1,7 +1,9 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
-import { User } from 'src/users/users.entitiy';
+import { entitiesObject } from '../entities';
 import { SeederEntity } from '../seeders.entity';
+
+const { User } = entitiesObject;
 
 export default class UserSeeder implements Seeder {
   public async run(
@@ -30,12 +32,14 @@ export default class UserSeeder implements Seeder {
         password: '123456',
         phone: '123456789',
         idNumber: '1234567890',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]);
 
     // ---------------------------------------------------
 
-    const userFactory = await factoryManager.get(User);
+    const userFactory = factoryManager.get(User);
     // save 1 factory generated entity, to the database
     await userFactory.save();
 

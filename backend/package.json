@@ -27,8 +27,9 @@
     "typeorm:revert-migration": "npm run typeorm -- -d ./src/db/config/datasource.config.ts migration:revert",
     "db:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:create",
     "db:drop": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop",
-    "seed:run": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run",
-    "seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create"
+    "seed:run": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run seed -d src/db/seeders/index.ts",
+    "seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create",
+    "seed": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d src/db/seeders/index.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

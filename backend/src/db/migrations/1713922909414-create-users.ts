@@ -60,17 +60,19 @@ export class CreateTableUser1684206622652 implements MigrationInterface {
           {
             name: 'phone',
             type: 'varchar',
-            length: '20',
+            length: '200',
             isNullable: true,
           },
           {
             name: 'created_at',
             type: 'timestamp with time zone',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'updated_at',
             type: 'timestamp with time zone',
             isNullable: true,
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'deleted_at',
