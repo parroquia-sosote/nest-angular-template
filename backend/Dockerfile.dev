@@ -1,5 +1,5 @@
-# FROM node:18-alpine3.16
-FROM oven/bun
+FROM node:18-alpine3.16
+# FROM oven/bun
 
 # Create app directory
 WORKDIR /app
@@ -7,8 +7,10 @@ WORKDIR /app
 # Install app dependencies
 COPY package.json ./
 
-RUN bun install -g @nestjs/cli
-RUN bun install
+# RUN bun install -g @nestjs/cli
+# RUN bun install
+RUN npm install -g @nestjs/cli
+RUN npm install
 
 # Bundle app source
 COPY . .
@@ -18,3 +20,4 @@ EXPOSE 3000
 
 # Run the app
 CMD ["npm", "run", "start:dev"]
+# CMD ["bun", "run", "start:dev"]
