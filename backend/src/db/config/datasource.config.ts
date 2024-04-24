@@ -7,7 +7,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import entities from '../entities';
 
-// const migrationsPath = path.join(process.cwd(), 'src/db/migrations/*{.ts,.js}');
+const migrationsPath = path.join(process.cwd(), 'src/db/migrations/*{.ts,.js}');
 // const entitiesPath = path.join(
 //   process.cwd(),
 //   'src/**/*{.entity.ts,.entity.js}',
@@ -22,8 +22,8 @@ export const config: DataSourceOptions &
   password: process.env.DB_PASSWORD || 'postgres',
   database: process.env.DB_NAME || 'postgres',
   username: process.env.DB_USER || 'postgres',
-  // migrations: [migrationsPath],
-  migrations: ['dist/db/migrations/*{.ts,.js}'],
+  migrations: [migrationsPath],
+  // migrations: ['dist/db/migrations/*{.ts,.js}'],
   // entities: [entitiesPath],
   entities: entities,
   // seeds: [UserSeeder],
