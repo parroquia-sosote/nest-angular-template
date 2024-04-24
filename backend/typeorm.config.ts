@@ -6,7 +6,6 @@ dotenv.config();
 // import { SeederOptions } from 'typeorm-extension';
 
 const migrationsPath = path.join(process.cwd(), 'src/db/migrations/*{.ts}');
-console.log(process.env.DB_HOST);
 
 const typeOrmConfig: TypeOrmModuleOptions =
   // & SeederOptions
