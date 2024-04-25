@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/users.dto';
-import { API_VERSION } from 'src/common/constants';
+import { API_VERSION } from '../common/constants';
 
 @Controller(`api/${API_VERSION}/users`)
 export class UsersController {

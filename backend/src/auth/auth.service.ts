@@ -19,6 +19,7 @@ export class AuthService {
 
     if (user && isValidPassword) {
       // const { password, ...result } = user;
+      // return result;
       delete user.password;
       return user;
     }
