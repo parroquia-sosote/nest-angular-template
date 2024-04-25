@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.signIn({ email, password }).subscribe({
       next: (response: any) => {
+        // TODO: change backend to return user object apart from token
         this.storageService.saveUser(response);
         // this.storageService.saveToken(response.token);
         this.authService.setToken(response.access_token);
