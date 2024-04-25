@@ -14,11 +14,6 @@ export class CreateTableUser1684206622652 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'id_number',
-            type: 'varchar',
-            length: '10',
-          },
-          {
             name: 'full_name',
             type: 'varchar',
             length: '100',
@@ -80,12 +75,7 @@ export class CreateTableUser1684206622652 implements MigrationInterface {
             isNullable: true,
           },
         ],
-        indices: [
-          {
-            name: 'pk_user_id',
-            columnNames: ['id_number'],
-          },
-        ],
+        indices: [],
       }),
       true,
     );

@@ -8,7 +8,6 @@ export default setSeederFactory(User, (faker) => {
   user.email = faker.internet.email(user.fullName);
   user.password = faker.internet.password();
   user.phone = faker.phone.number();
-  user.idNumber = faker.string.numeric(10);
 
   return user;
 });

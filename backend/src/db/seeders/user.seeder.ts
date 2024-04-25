@@ -31,7 +31,6 @@ export default class UserSeeder implements Seeder {
         email: 'ferrinluiggy@gmail.com',
         password: '123456',
         phone: '123456789',
-        idNumber: '1234567890',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
