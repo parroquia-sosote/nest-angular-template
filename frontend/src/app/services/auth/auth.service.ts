@@ -9,6 +9,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  signUp(credentials: any) {
+    return this.http.post(`${this.apiUrl}/auth/signup`, credentials);
+  }
+
   signIn(credentials: any) {
     return this.http.post(`${this.apiUrl}/auth/signin`, credentials);
   }

@@ -18,6 +18,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       setHeaders: {
         Authorization: `Bearer ${authToken}`,
       },
+      withCredentials: true,
     });
   }
 
