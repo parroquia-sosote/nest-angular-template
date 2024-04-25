@@ -33,6 +33,7 @@ export default class UserSeeder implements Seeder {
         phone: '123456789',
         createdAt: new Date(),
         updatedAt: new Date(),
+        username: 'macluiggy',
       },
     ]);
 
