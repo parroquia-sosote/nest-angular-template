@@ -11,7 +11,7 @@ import { UsersService } from './users.service';
 import { UserDto } from './dto/users.dto';
 import { API_VERSION } from 'src/common/constants';
 
-@Controller(`api/${API_VERSION}/user`)
+@Controller(`api/${API_VERSION}/users`)
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
