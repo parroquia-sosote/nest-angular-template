@@ -12,7 +12,7 @@ import {
 import { UsersService } from './users.service';
 import { UserDto } from './dto/users.dto';
 import { API_VERSION } from '../common/constants';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('users')
@@ -23,6 +23,7 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a new user' })
   async create(@Body() userDTO: UserDto) {
     return await this.userService.create(userDTO);
   }
