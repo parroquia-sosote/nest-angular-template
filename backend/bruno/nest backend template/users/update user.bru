@@ -1,0 +1,18 @@
+meta {
+  name: update user
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/posts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "title": "First Post",
+      "content": "This is first post"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "nestjs-backend-template",
+  "name": "nest backend template",
   "type": "collection",
   "ignore": [
     "node_modules",

@@ -1,0 +1,18 @@
+meta {
+  name: update user Copy
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/posts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "title": "First Post",
+      "content": "This is first post"
+  }
+}
