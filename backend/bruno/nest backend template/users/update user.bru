@@ -5,14 +5,16 @@ meta {
 }
 
 put {
-  url: {{base_url}}/posts
+  url: {{base_url}}/users/189fe56e-5824-4d1b-8af0-516f4fa2dd65
   body: json
   auth: none
 }
 
 body:json {
-  {
-      "title": "First Post",
-      "content": "This is first post"
+   {
+      "fullName": "John Doe Updated",
+      "email": "example@example.com",
+      "password": "password",
+      "phone": "1234567890"
   }
 }
