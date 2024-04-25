@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { UserDto } from '../users/dto/users.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { Request } from 'express';
 
 @ApiTags('auth')
 @Controller('api/v1/auth')
@@ -14,7 +15,7 @@ export class AuthController {
   ) {}
   @UseGuards(LocalAuthGuard)
   @Post('signin')
-  async signIn(@Req() req) {
+  async signIn(@Req() req: Request & { user: any }) {
     return await this.authService.signIn(req.user);
   }
 
