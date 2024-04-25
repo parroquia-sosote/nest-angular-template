@@ -64,4 +64,10 @@ export class UsersService {
       where: { username },
     });
   }
+
+  async findByEmail(email: string): Promise<User> {
+    return await this.userRepository.findOneOrFail({
+      where: { email },
+    });
+  }
 }

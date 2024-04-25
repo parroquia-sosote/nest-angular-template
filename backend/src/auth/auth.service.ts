@@ -27,7 +27,17 @@ export class AuthService {
   }
 
   async signIn(user: any) {
-    const payload = { username: user.username, sub: user._id };
+    console.log(user);
+    const userFromDB = await this.userService.findByEmail(user.email);
+    delete userFromDB.password;
+    delete userFromDB.createdAt;
+    delete userFromDB.updatedAt;
+    delete userFromDB.isPasswordReset;
+    delete userFromDB.deletedAt;
+    delete userFromDB.phone;
+
+    const payload = { ...userFromDB };
+
     const access_token = this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET,
       expiresIn: process.env.JWT_EXPIRES_IN,

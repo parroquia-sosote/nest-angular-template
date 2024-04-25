@@ -18,7 +18,7 @@ export class AuthController {
   async signIn(@Req() req: Request & { user: any }) {
     const body = req.body;
     const user = {
-      username: body.username,
+      email: body.email,
       password: body.password,
     };
     return await this.authService.signIn(user);
