@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "nestjs-backend-template",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
