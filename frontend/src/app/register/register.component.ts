@@ -15,6 +15,7 @@ export class RegisterComponent {
     email: '',
     password: '',
     username: '',
+    fullName: '',
   };
   isSuccessful = false;
   isSignUpFailed = false;
