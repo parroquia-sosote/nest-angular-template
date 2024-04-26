@@ -17,11 +17,11 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/auth/signin`, credentials);
   }
 
-  setToken(token: string) {
+  static setToken(token: string) {
     localStorage.setItem('token', token);
   }
 
-  getToken() {
+  static getToken() {
     return localStorage.getItem('token');
   }
 }

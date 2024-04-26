@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         // TODO: change backend to return user object apart from token
         this.storageService.saveUser(response);
         // this.storageService.saveToken(response.token);
-        this.authService.setToken(response.access_token);
+        AuthService.setToken(response.access_token);
 
         this.isLoggedIn = true;
         this.roles = this.storageService.getUser().roles;

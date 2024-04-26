@@ -1,16 +1,10 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
-
-// const setToken = (token: string) => {
-//   localStorage.setItem('token', token);
-// };
-const getToken = () => {
-  return localStorage.getItem('token');
-};
+import { AuthService } from './auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // setToken('token');
-  const authToken = getToken();
+  const authToken = AuthService.getToken();
 
   // "if" because the endpoint for singup and singin doesn't need the token
   if (authToken) {
