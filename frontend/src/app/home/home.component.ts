@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
         console.error(error);
       },
       complete: () => {
-        console.log('Completed');
+        // console.log('Completed');
       },
     });
   }
