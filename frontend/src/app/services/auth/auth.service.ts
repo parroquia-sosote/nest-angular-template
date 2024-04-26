@@ -17,6 +17,10 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/auth/signin`, credentials);
   }
 
+  logout() {
+    return this.http.post(`${this.apiUrl}/auth/logout`, {});
+  }
+
   static setToken(token: string) {
     localStorage.setItem('token', token);
   }
