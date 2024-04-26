@@ -1,15 +1,17 @@
-<div class="user-info">
-  <h2>User Profile</h2>
-  <div>
-    <label><b>Username:</b></label>
-    <p>{{ user.username }}</p>
-  </div>
-  <div>
-    <label><b>Email:</b></label>
-    <p>{{ user.email }}</p>
-  </div>
-  <div>
-    <label><b>Role:</b></label>
-    <p>{{ user.role }}</p>
+<div class="user-info card">
+  <div class="card-body">
+    <h2 class="card-title">User Profile</h2>
+    <div class="mb-3">
+      <label class="form-label"><b>Username:</b></label>
+      <p class="card-text">{{ user.username }}</p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"><b>Email:</b></label>
+      <p class="card-text">{{ user.email }}</p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"><b>Role:</b></label>
+      <p class="card-text">{{ user.role }}</p>
+    </div>
   </div>
 </div>
