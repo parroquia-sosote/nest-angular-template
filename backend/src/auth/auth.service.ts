@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserDto } from '../users/dto/users.dto';
 import { UsersService } from '../users/users.service';
@@ -24,8 +24,15 @@ export class AuthService {
     return null;
   }
 
-  async signIn(user: any) {
+  async signIn(user: { email: string; password: string }) {
     const userFromDB = await this.userService.findByEmail(user.email);
+    const isValidPassword = await this.userService.checkPassword(
+      user.password,
+      userFromDB.password,
+    );
+    if (!isValidPassword) {
+      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+    }
     delete userFromDB.password;
     delete userFromDB.createdAt;
     delete userFromDB.updatedAt;
@@ -35,14 +42,15 @@ export class AuthService {
 
     const payload = { ...userFromDB };
 
-    const access_token = this.jwtService.sign(payload, {
+    const accessToken = this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET,
       expiresIn: process.env.JWT_EXPIRES_IN,
       // audience: process.env.APP_URL,
     });
 
     return {
-      access_token,
+      accessToken,
+      user: userFromDB,
     };
   }
 
