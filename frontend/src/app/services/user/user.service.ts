@@ -10,4 +10,8 @@ export class UserService {
   getPublicContent(): Observable<string> {
     return of('Public content');
   }
+
+  getAdminBoard(): Observable<string> {
+    return of('Admin content');
+  }
 }
