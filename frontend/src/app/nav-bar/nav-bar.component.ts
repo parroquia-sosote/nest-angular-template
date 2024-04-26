@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { StorageService } from './services/storage/storage.service';
-import { AuthService } from './services/auth/auth.service';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { StorageService } from '../services/storage/storage.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  imports: [],
+  templateUrl: './nav-bar.component.html',
+  styleUrl: './nav-bar.component.scss'
 })
-export class AppComponent {
+export class NavBarComponent {
   title = 'frontend';
   private roles: string[] = [];
   isLoggedIn = false;
@@ -52,3 +50,4 @@ export class AppComponent {
     });
   }
 }
+
