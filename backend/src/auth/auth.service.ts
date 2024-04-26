@@ -50,4 +50,8 @@ export class AuthService {
   async singUp(user: UserDto) {
     return await this.userService.create(user);
   }
+
+  async logout() {
+    return { message: 'Logout successfully' };
+  }
 }
