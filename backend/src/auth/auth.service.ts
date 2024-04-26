@@ -25,7 +25,6 @@ export class AuthService {
   }
 
   async signIn(user: any) {
-    console.log(user);
     const userFromDB = await this.userService.findByEmail(user.email);
     delete userFromDB.password;
     delete userFromDB.createdAt;
