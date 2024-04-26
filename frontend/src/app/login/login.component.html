@@ -62,7 +62,7 @@
       </div>
     </form>
     } @else {
-    <div class="alert alert-success">Logged in as {{ roles }}.</div>
+    <div class="alert alert-success">Logged in as {{ user.username || user.fullName }}.</div>
     }
   </div>
 </div>
