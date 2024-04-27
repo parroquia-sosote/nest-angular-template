@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private isLoggedIn = new BehaviorSubject<boolean>(false);
-  private apiUrl = 'http://localhost:3000/api/v1'; // replace with your API URL
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -23,11 +24,11 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/auth/logout`, {});
   }
 
-  static setToken(token: string) {
+  setToken(token: string) {
     localStorage.setItem('token', token);
   }
 
-  static getToken() {
+  getToken() {
     return localStorage.getItem('token');
   }
 

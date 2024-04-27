@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = environment.apiUrl;
+  private userApi = `${environment.apiUrl}/users`
   constructor(private http: HttpClient) {}
 
   getPublicContent(): Observable<string> {
@@ -19,6 +19,6 @@ export class UserService {
   }
 
   updateUserData(data: any, userId: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/user/${userId}`, data);
+    return this.http.put(`${this.userApi}/${userId}`, data);
   }
 }

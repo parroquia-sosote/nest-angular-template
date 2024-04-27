@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private storageService: StorageService,
+    private storageService: StorageService
   ) {}
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.storageService.saveUser(response.user);
         this.user = response.user;
 
-        AuthService.setToken(response.access_token);
+        this.storageService.setToken(response.accessToken);
 
         this.authService.setIsLoggedIn(true);
 

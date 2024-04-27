@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../services/storage/storage.service';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-board-user',
@@ -18,18 +19,22 @@ export class BoardUserComponent implements OnInit {
     username: '',
     fullName: '',
   };
+  userId = '';
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
 
   constructor(
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     // get logged in user
     const user = this.storageService.getUser();
+    this.userId = user.id;
+    
     // put it in the form
     this.form = {
       email: user.email,
@@ -41,18 +46,17 @@ export class BoardUserComponent implements OnInit {
 
   updateUserData() {
     console.log('updateUserData', this.form);
-    
-    // this.authService.signUp(this.form).subscribe({
-    //   next: (response: any) => {
-    //     console.log(response);
-    //     this.isSuccessful = true;
-    //     this.isSignUpFailed = false;
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //     this.errorMessage = error.error.message;
-    //     this.isSignUpFailed = true;
-    //   },
-    // });
+    this.userService.updateUserData(this.form, this.userId).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+      },
+      error: (error) => {
+        console.error(error);
+        this.errorMessage = error.error.message;
+        this.isSignUpFailed = true;
+      },
+    });
   }
 }

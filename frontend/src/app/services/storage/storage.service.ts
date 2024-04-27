@@ -42,4 +42,18 @@ export class StorageService {
 
     return false;
   }
+
+  public setToken(token: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('token', token);
+    }
+  }
+
+  public getToken(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('token') || '';
+    }
+
+    return '';
+  }
 }
