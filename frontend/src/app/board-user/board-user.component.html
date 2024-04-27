@@ -5,7 +5,7 @@
       src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
       class="profile-img-card user-form-img"
     />
-    @if (!isSuccessful) {
+    <!-- @if (!isSuccessful) { -->
     <form
       name="form"
       (ngSubmit)="f.form.valid && updateUserData()"
@@ -112,6 +112,6 @@
         </button>
       </div>
     </form>
-    } @else { }
+    <!-- } @else { } -->
   </div>
 </div>

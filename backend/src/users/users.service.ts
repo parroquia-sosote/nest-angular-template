@@ -46,12 +46,16 @@ export class UsersService {
   }
 
   async update(id: string, userDto: UserDto): Promise<User> {
+    delete userDto.password; // Don't update the password here
     const user = await this.findOne(id);
-    const updatedUser = {
+    const updatedUserData = {
       ...user,
       ...userDto,
     };
-    return await this.userRepository.save(updatedUser);
+    const updatedUser = await this.userRepository.save(updatedUserData);
+    delete updatedUser.password;
+
+    return updatedUser;
   }
 
   async remove(id: string): Promise<void> {

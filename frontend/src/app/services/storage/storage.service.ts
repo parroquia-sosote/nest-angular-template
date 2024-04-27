@@ -14,10 +14,24 @@ export class StorageService {
     }
   }
 
+  /**
+   * Only save user when user is logged in, if you want to update user data, use updateUser
+   * @param user 
+   */
   public saveUser(user: any): void {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.removeItem(USER_KEY);
       sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    }
+  }
+
+  public updateUser(user: any): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const oldUser = sessionStorage.getItem(USER_KEY);
+      if (oldUser) {
+        const newUser = { ...JSON.parse(oldUser), ...user };
+        sessionStorage.setItem(USER_KEY, JSON.stringify(newUser));
+      }
     }
   }
 
