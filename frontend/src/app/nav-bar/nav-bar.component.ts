@@ -11,7 +11,6 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class NavBarComponent {
   title = 'frontend';
-  private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
@@ -25,6 +24,7 @@ export class NavBarComponent {
   ngOnInit(): void {
     this.authService.getIsLoggedIn().subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
+      this.username = this.storageService.getUser().username;
     });
     this.isLoggedIn = this.storageService.isLoggedIn();
 
