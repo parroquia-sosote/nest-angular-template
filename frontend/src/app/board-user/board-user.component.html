@@ -8,7 +8,7 @@
     @if (!isSuccessful) {
     <form
       name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
+      (ngSubmit)="f.form.valid && updateUserData()"
       #f="ngForm"
       novalidate
     >
@@ -84,7 +84,7 @@
         </div>
         }
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="password">Password</label>
         <input
           type="password"
@@ -105,19 +105,13 @@
           }
         </div>
         }
-      </div>
+      </div> -->
       <div class="form-group">
-        <button class="btn btn-dark  btn-primary btn-block">Sign Up</button>
+        <button class="btn btn-dark btn-primary btn-block">
+          Update Profile
+        </button>
       </div>
-
-      @if (f.submitted && isSignUpFailed) {
-      <div class="alert alert-warning">
-        Signup failed!<br />{{ errorMessage }}
-      </div>
-      }
     </form>
-    } @else {
-    <div class="alert alert-success">Your registration is successful!</div>
-    }
+    } @else { }
   </div>
 </div>
