@@ -4,6 +4,7 @@ import { User } from './users.entitiy';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from './dto/users.dto';
+import { DEFAULT_LANG } from '../lang';
 
 @Injectable()
 export class UsersService {
@@ -77,6 +78,6 @@ export class UsersService {
 
   async getPreferredLang(userId: string): Promise<string> {
     const user = await this.findOne(userId);
-    return user['preferredLanguage'] || 'en';
+    return user['preferredLanguage'] || DEFAULT_LANG;
   }
 }

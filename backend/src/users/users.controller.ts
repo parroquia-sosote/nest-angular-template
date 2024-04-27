@@ -7,6 +7,7 @@ import {
   Delete,
   Param,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/users.dto';
@@ -14,7 +15,7 @@ import { API_VERSION } from '../common/constants';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import ApiStandardResponse from '../common/interceptors/api-response';
-import { LangService } from '../lang/lang.service';
+import getMessages from '../lang/getMessages';
 
 @ApiTags('users')
 @ApiBearerAuth()
@@ -22,12 +23,7 @@ import { LangService } from '../lang/lang.service';
 @Controller(`api/${API_VERSION}/users`)
 export class UsersController {
   private messages: any;
-  constructor(
-    private readonly userService: UsersService,
-    private readonly langService: LangService,
-  ) {
-    this.messages = this.langService.getMessages();
-  }
+  constructor(private readonly userService: UsersService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
@@ -46,10 +42,16 @@ export class UsersController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() userDTO: UserDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() userDTO: UserDto,
+    @Req() req: any,
+  ) {
+    const preferredLanguage = req.user.preferredLanguage;
+    const messages = getMessages(preferredLanguage);
     return new ApiStandardResponse(
       await this.userService.update(id, userDTO),
-      'User updated successfully',
+      messages.USER.UPDATED,
     );
   }
 

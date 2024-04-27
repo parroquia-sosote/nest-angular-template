@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserDto } from '../users/dto/users.dto';
 import { UsersService } from '../users/users.service';
 import { LangService } from '../lang/lang.service';
+import { DEFAULT_LANG } from '../lang';
 
 @Injectable()
 export class AuthService {
@@ -28,8 +29,7 @@ export class AuthService {
 
   async signIn(user: { email: string; password: string }) {
     const userFromDB = await this.userService.findByEmail(user.email);
-    const preferredLanguage = userFromDB['preferredLanguage'] || 'EN';
-    this.langService.setLang(preferredLanguage);
+    const preferredLanguage = userFromDB['preferredLanguage'] || 'ES';
     const isValidPassword = await this.userService.checkPassword(
       user.password,
       userFromDB.password,
@@ -44,7 +44,10 @@ export class AuthService {
     delete userFromDB.deletedAt;
     delete userFromDB.phone;
 
-    const payload = { ...userFromDB };
+    const payload = {
+      ...userFromDB,
+      preferredLanguage: preferredLanguage || DEFAULT_LANG,
+    };
 
     const accessToken = this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET,
