@@ -1,10 +1,13 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError, finalize, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
+import { inject } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // setToken('token');
   const authToken = AuthService.getToken();
+  const toarstrService = inject(ToastrService);
 
   // "if" because the endpoint for singup and singin doesn't need the token
   if (authToken) {
@@ -27,6 +30,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         } else {
           // Handle other HTTP error codes
           console.error('HTTP error:', err);
+          toarstrService.error(err.error.message);
         }
       } else {
         // Handle non-HTTP errors

@@ -10,6 +10,8 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { GlobalErrorHandler } from './global-error-handler';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,5 +22,7 @@ export const appConfig: ApplicationConfig = {
       provide: ErrorHandler,
       useClass: GlobalErrorHandler,
     },
+    provideAnimations(),
+    provideToastr(),
   ],
 };
