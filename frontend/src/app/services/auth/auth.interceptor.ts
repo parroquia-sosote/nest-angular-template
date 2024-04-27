@@ -3,11 +3,13 @@ import { catchError, finalize, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // setToken('token');
   const authToken = AuthService.getToken();
   const toarstrService = inject(ToastrService);
+  const router = inject(Router);
 
   // "if" because the endpoint for singup and singin doesn't need the token
   if (authToken) {
@@ -27,6 +29,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           // Specific handling for unauthorized errors
           console.error('Unauthorized request:', err);
           // You might trigger a re-authentication flow or redirect the user here
+          router.navigate(['/login']);
         } else {
           // Handle other HTTP error codes
           console.error('HTTP error:', err);
