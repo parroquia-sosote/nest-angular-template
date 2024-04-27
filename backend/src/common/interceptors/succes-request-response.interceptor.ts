@@ -15,16 +15,17 @@ export class SuccesResponseInterceptor<T>
   intercept(
     context: ExecutionContext,
     next: CallHandler,
-  ): Observable<Response<T, Record<string, any>>> {
+  ): Observable<Response<T>> {
     return next.handle().pipe(
-      map(
-        (data) =>
-          ({
-            statusCode: context.switchToHttp().getResponse().statusCode,
-            message: 'Success',
-            data,
-          }) as unknown as Response<T, Record<string, any>>,
-      ),
-    );
+      map((data) => {
+        console.log('data', data);
+
+        return {
+          statusCode: context.switchToHttp().getResponse().statusCode,
+          message: data.message || 'Success',
+          data: data.data || data,
+        };
+      }),
+    ) as unknown as Observable<Response<T>>;
   }
 }
