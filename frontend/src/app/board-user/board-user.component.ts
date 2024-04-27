@@ -35,7 +35,7 @@ export class BoardUserComponent implements OnInit {
     let user = this.storageService.getUser();
 
     this.userId = user.id;
-    const userDB = this.userService.getUserByUserId(this.userId);
+    const userDB = this.userService.getUserByUserId(this.userId)
     this.storageService.updateUser(userDB);
     user = this.storageService.getUser();
 
@@ -49,13 +49,12 @@ export class BoardUserComponent implements OnInit {
   }
 
   updateUserData() {
-    console.log('updateUserData', this.form);
     this.userService.updateUserData(this.form, this.userId).subscribe({
       next: (response: any) => {
-        console.log(response);
+        const data = response.data;
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.storageService.updateUser(response);
+        this.storageService.updateUser(data);
       },
       error: (error) => {
         console.error(error);
