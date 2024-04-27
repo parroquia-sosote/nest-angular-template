@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { StorageService } from '../services/storage/storage.service';
 import { AuthService } from '../services/auth/auth.service';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet, RouterModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
 })
