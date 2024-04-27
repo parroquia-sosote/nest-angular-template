@@ -25,17 +25,16 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
   ) {}
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
     }
     this.user = this.storageService.getUser();
   }
 
-  onSubmit() {
+  login() {
     const { email, password } = this.form;
 
     this.authService.signIn({ email, password }).subscribe({
@@ -43,10 +42,10 @@ export class LoginComponent implements OnInit {
         // TODO: change backend to return user object apart from token
         this.storageService.saveUser(response.user);
         this.user = response.user;
-        console.log(this.user);
 
-        // this.storageService.saveToken(response.token);
         AuthService.setToken(response.access_token);
+
+        this.authService.setIsLoggedIn(true);
 
         this.isLoggedIn = true;
         this.isLoginFailed = false;

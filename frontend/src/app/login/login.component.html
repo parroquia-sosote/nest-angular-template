@@ -8,7 +8,7 @@
     @if (!isLoggedIn) {
     <form
       name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
+      (ngSubmit)="f.form.valid && login()"
       #f="ngForm"
       novalidate
     >

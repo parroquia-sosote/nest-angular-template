@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth/auth.service';
   standalone: true,
   imports: [],
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.scss'
+  styleUrl: './nav-bar.component.scss',
 })
 export class NavBarComponent {
   title = 'frontend';
@@ -23,6 +23,9 @@ export class NavBarComponent {
   ) {}
 
   ngOnInit(): void {
+    this.authService.getIsLoggedIn().subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+    });
     this.isLoggedIn = this.storageService.isLoggedIn();
 
     if (this.isLoggedIn) {
@@ -35,10 +38,8 @@ export class NavBarComponent {
   logout(): void {
     this.authService.logout().subscribe({
       next: (res) => {
-        console.log(res);
         this.storageService.clean();
-
-        window.location.reload();
+        this.authService.setIsLoggedIn(false);
       },
       error: (err) => {
         console.log(err);
@@ -46,4 +47,3 @@ export class NavBarComponent {
     });
   }
 }
-
