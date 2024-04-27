@@ -1,7 +1,7 @@
 export default class ApiResponse {
   constructor(
     private readonly data: any,
-    private readonly message: string,
+    private readonly message: string | undefined = '',
   ) {
     this.data = data;
     this.message = this.getMessageWithCapitalizedFirstLetter(message);

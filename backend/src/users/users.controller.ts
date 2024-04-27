@@ -13,7 +13,7 @@ import { UserDto } from './dto/users.dto';
 import { API_VERSION } from '../common/constants';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import ApiResponse from '../common/interceptors/succesful-response';
+import ApiResponse from '../common/interceptors/api-response';
 
 @ApiTags('users')
 @ApiBearerAuth()
@@ -42,7 +42,7 @@ export class UsersController {
   async update(@Param('id') id: string, @Body() userDTO: UserDto) {
     return new ApiResponse(
       await this.userService.update(id, userDTO),
-      'user updated successfully',
+      'User updated successfully',
     );
   }
 

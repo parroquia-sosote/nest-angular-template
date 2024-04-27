@@ -1,6 +1,5 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { catchError, finalize, throwError } from 'rxjs';
-import { AuthService } from './auth.service';
+import { catchError, tap, throwError } from 'rxjs';
 import { inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -24,6 +23,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(req).pipe(
+    tap((response: any) => {
+      // Handle successful responses
+      const body = response.body;
+      if (body) {
+        const message = body.message;
+        if (message && message !== 'OK') {
+          toarstrService.success(message, '', {});
+        }
+      }
+    }),
     catchError((err: any) => {
       if (err instanceof HttpErrorResponse) {
         // Handle HTTP errors
