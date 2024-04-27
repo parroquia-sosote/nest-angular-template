@@ -30,7 +30,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         } else {
           // Handle other HTTP error codes
           console.error('HTTP error:', err);
-          toarstrService.error(err.error.message);
+          toarstrService.error(err.error.message, 'Internal Server Error', {});
         }
       } else {
         // Handle non-HTTP errors
