@@ -30,9 +30,7 @@ export class UsersController {
   }
 
   @Get()
-  async findAll(@Req() req: any) {
-    console.log(req.user);
-
+  async findAll() {
     return await this.userService.findAll();
   }
 
