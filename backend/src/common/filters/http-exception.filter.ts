@@ -20,7 +20,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const msg = exception.getResponse
       ? exception.getResponse()
       : exception.message;
-    console.error(exception);
+
+    const cause = exception.cause;
 
     this.logger.error(
       `Http Status: ${status}, Error Message: ${JSON.stringify(msg)}`,
@@ -30,6 +31,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       path: request.url,
       message: msg,
+      cause: cause,
     });
   }
 }
