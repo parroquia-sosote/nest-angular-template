@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -5,7 +6,9 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  constructor() {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   getPublicContent(): Observable<string> {
     return of('Public content');
@@ -13,5 +16,9 @@ export class UserService {
 
   getAdminBoard(): Observable<string> {
     return of('Admin content');
+  }
+
+  updateUserData(data: any): Observable<any> {
+    
   }
 }
