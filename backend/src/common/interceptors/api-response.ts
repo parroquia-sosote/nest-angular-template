@@ -1,4 +1,7 @@
-export default class ApiResponse {
+/**
+ * Use this class to standardize the response of your API, use it in your controllers as the return value of your methods.
+ */
+export default class ApiStandardResponse {
   constructor(
     private readonly data: any,
     private readonly message: string | undefined = '',

@@ -1,4 +1,7 @@
 import EN from './en';
 import ES from './es';
-
-export { EN, ES };
+const LANGUAGES = {
+  EN,
+  ES,
+};
+export default LANGUAGES;

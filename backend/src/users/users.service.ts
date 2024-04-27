@@ -74,4 +74,9 @@ export class UsersService {
       where: { email },
     });
   }
+
+  async getPreferredLang(userId: string): Promise<string> {
+    const user = await this.findOne(userId);
+    return user['preferredLanguage'] || 'en';
+  }
 }

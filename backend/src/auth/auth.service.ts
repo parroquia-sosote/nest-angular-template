@@ -2,12 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserDto } from '../users/dto/users.dto';
 import { UsersService } from '../users/users.service';
+import { LangService } from '../lang/lang.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly langService: LangService,
   ) {}
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userService.findByUsername(username);
@@ -26,6 +28,8 @@ export class AuthService {
 
   async signIn(user: { email: string; password: string }) {
     const userFromDB = await this.userService.findByEmail(user.email);
+    const preferredLanguage = userFromDB['preferredLanguage'] || 'EN';
+    this.langService.setLang(preferredLanguage);
     const isValidPassword = await this.userService.checkPassword(
       user.password,
       userFromDB.password,

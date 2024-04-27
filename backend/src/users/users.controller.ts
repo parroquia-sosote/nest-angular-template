@@ -13,14 +13,21 @@ import { UserDto } from './dto/users.dto';
 import { API_VERSION } from '../common/constants';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import ApiResponse from '../common/interceptors/api-response';
+import ApiStandardResponse from '../common/interceptors/api-response';
+import { LangService } from '../lang/lang.service';
 
 @ApiTags('users')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller(`api/${API_VERSION}/users`)
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  private messages: any;
+  constructor(
+    private readonly userService: UsersService,
+    private readonly langService: LangService,
+  ) {
+    this.messages = this.langService.getMessages();
+  }
 
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
@@ -40,7 +47,7 @@ export class UsersController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() userDTO: UserDto) {
-    return new ApiResponse(
+    return new ApiStandardResponse(
       await this.userService.update(id, userDTO),
       'User updated successfully',
     );

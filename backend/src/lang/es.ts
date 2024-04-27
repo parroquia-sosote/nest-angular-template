@@ -1,4 +1,6 @@
-const ES = {
+import Lang from './lang.type';
+
+const ES: Lang = {
   USER: {
     UPDATED: 'Usuario actualizado correctamente',
   },
