@@ -4,12 +4,24 @@
     <body>
       <trans-unit id="7479548126924915957" datatype="html">
         <source>Angular Template</source>
-        <target>Plantilla Angular</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/nav-bar/nav-bar.component.html</context>
           <context context-type="linenumber">2,3</context>
         </context-group>
-        <note priority="1" from="description">@navBarTitle</note>
+      </trans-unit>
+      <trans-unit id="5839190362513362134" datatype="html">
+        <source>Admin Board</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/nav-bar/nav-bar.component.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="367908660675502649" datatype="html">
+        <source>Moderator Board</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/nav-bar/nav-bar.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
       </trans-unit>
     </body>
   </file>
