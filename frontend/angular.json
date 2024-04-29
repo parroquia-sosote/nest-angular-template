@@ -101,7 +101,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "frontend:build"
+            "buildTarget": "frontend:build",
+            "outputPath": "src/locale",
+            "format": "json"
           }
         },
         "test": {
