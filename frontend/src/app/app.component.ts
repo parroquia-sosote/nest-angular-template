@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -18,4 +19,12 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('en');
+  }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
 }
