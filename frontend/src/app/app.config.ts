@@ -1,4 +1,9 @@
-import { ApplicationConfig, ErrorHandler } from '@angular/core';
+import {
+  ApplicationConfig,
+  ErrorHandler,
+  LOCALE_ID,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -24,5 +29,9 @@ export const appConfig: ApplicationConfig = {
     },
     provideAnimations(),
     provideToastr(),
+    {
+      provide: LOCALE_ID,
+      useValue: 'en-US',
+    },
   ],
 };
