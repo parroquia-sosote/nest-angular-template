@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class AuthService {
   private isLoggedIn = new BehaviorSubject<boolean>(false);
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private storageService: StorageService) {}
 
   signUp(credentials: any) {
     return this.http.post(`${this.apiUrl}/auth/signup`, credentials);
@@ -38,5 +39,9 @@ export class AuthService {
 
   setIsLoggedIn(value: boolean) {
     this.isLoggedIn.next(value);
+  }
+
+  userIsLoggedIn() {
+    return this.storageService.isLoggedIn();
   }
 }

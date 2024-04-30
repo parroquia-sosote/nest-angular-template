@@ -6,11 +6,12 @@ import { RegisterComponent } from './register/register.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BoardUserComponent } from './board-user/board-user.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
   { path: 'register', component: RegisterComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'user', component: BoardUserComponent },
