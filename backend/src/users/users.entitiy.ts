@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Languages } from '../lang/lang.entity';
 
 @Entity()
 export class User {
@@ -29,6 +36,9 @@ export class User {
   @Column({ name: 'role', type: 'varchar', length: 50, default: 'user' })
   role: string;
 
+  @ManyToOne(() => Languages, (language) => language.id)
+  @JoinColumn({ name: 'preferred_language_id' })
+  preferredLanguage: Languages;
   @Column({
     name: 'preferred_language_id',
     type: 'uuid',

@@ -5,12 +5,15 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from './dto/users.dto';
 import { DEFAULT_LANG } from '../lang';
+import { Languages } from '../lang/lang.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Languages)
+    private readonly languagesRepository: Repository<Languages>,
   ) {}
 
   async checkPassword(attempt: string, password: string): Promise<boolean> {
@@ -78,7 +81,11 @@ export class UsersService {
 
   async getPreferredLang(userId: string): Promise<string> {
     const user = await this.findOne(userId);
-    return user['preferredLanguage'] || DEFAULT_LANG;
+    const lang = await this.languagesRepository.findOne({
+      where: { id: user['preferredLanguageId'] },
+    });
+    const langCode = lang ? lang.code : DEFAULT_LANG;
+    return langCode;
   }
 
   async deleteByEmail(email: string): Promise<void> {
