@@ -1,10 +1,10 @@
 import EN from './en';
 import ES from './es';
 const LANGUAGES = {
-  EN,
-  ES,
+  en: EN,
+  es: ES,
 };
 
-const DEFAULT_LANG = 'ES';
+const DEFAULT_LANG = 'es';
 export { DEFAULT_LANG };
 export default LANGUAGES;
