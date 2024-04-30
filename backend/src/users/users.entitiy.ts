@@ -4,8 +4,10 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  BeforeInsert,
 } from 'typeorm';
 import { Languages } from '../lang/lang.entity';
+import * as bcrypt from 'bcrypt';
 
 @Entity()
 export class User {
@@ -69,4 +71,10 @@ export class User {
 
   @Column({ name: 'phone', type: 'varchar', length: 100, default: '' })
   phone: string;
+
+  @BeforeInsert()
+  async checkData() {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
 }
