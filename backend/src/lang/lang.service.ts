@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import LANGUAGES from '.';
+import LANGUAGES, { DEFAULT_LANG } from '.';
 import EN from './en';
 import Lang from './lang.type';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,7 +15,7 @@ export class LangService {
     @InjectRepository(Languages)
     private readonly languagesRepository: Repository<Languages>,
   ) {
-    this.lang = 'EN';
+    this.lang = DEFAULT_LANG;
     this.messages = LANGUAGES[this.lang] || EN;
   }
 

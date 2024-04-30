@@ -5,6 +5,6 @@ const LANGUAGES = {
   es: ES,
 };
 
-const DEFAULT_LANG = 'es';
+const DEFAULT_LANG = 'en';
 export { DEFAULT_LANG };
 export default LANGUAGES;
