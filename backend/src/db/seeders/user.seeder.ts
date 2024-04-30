@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import { SeederEntity } from '../seeders.entity';
 import { Languages } from '../../lang/lang.entity';
 import { User } from '../../users/users.entitiy';
+import * as bcrypt from 'bcrypt';
 
 export default class UserSeeder implements Seeder {
   public async run(
@@ -32,7 +33,7 @@ export default class UserSeeder implements Seeder {
       {
         fullName: 'luiggy macias',
         email: 'ferrinluiggy@gmail.com',
-        password: '123456',
+        password: await bcrypt.hash('123456', 10),
         phone: '123456789',
         createdAt: new Date(),
         updatedAt: new Date(),

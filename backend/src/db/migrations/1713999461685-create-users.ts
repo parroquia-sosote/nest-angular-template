@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 export class CreateTableUser1684206622652 implements MigrationInterface {
@@ -155,9 +160,20 @@ export class CreateTableUser1684206622652 implements MigrationInterface {
       }),
       true,
     );
+
+    await queryRunner.createForeignKey(
+      'user',
+      new TableForeignKey({
+        columnNames: ['preferred_language_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'languages',
+        onDelete: 'SET NULL',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('user', true);
+    await queryRunner.dropTable('languages', true);
   }
 }
