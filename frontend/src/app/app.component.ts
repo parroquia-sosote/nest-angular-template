@@ -21,7 +21,7 @@ export class AppComponent {
   title = 'frontend';
 
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('en');
+    translate.setDefaultLang('es');
   }
 
   switchLanguage(language: string) {
