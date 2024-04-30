@@ -13,7 +13,8 @@ export class UserDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  idNumber: string;
+  @Length(0, 20)
+  username: string;
 
   @ApiProperty()
   @IsNotEmpty()
