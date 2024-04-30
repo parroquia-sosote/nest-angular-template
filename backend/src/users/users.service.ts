@@ -80,4 +80,11 @@ export class UsersService {
     const user = await this.findOne(userId);
     return user['preferredLanguage'] || DEFAULT_LANG;
   }
+
+  async deleteByEmail(email: string): Promise<void> {
+    const user = await this.userRepository.findOneOrFail({
+      where: { email },
+    });
+    await this.userRepository.delete(user.id);
+  }
 }

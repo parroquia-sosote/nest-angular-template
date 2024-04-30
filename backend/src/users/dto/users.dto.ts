@@ -10,69 +10,66 @@ import {
 } from 'class-validator';
 
 export class UserDto {
-  @ApiProperty()
+  @ApiProperty({ example: 'john_doe' })
   @IsNotEmpty()
   @IsString()
   @Length(0, 20)
   username: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'John Doe' })
   @IsNotEmpty()
   @IsString()
   fullName: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'john.doe@example.com' })
   @IsNotEmpty()
   @IsString()
   @IsEmail()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'password123' })
   @IsNotEmpty()
   @IsString()
   @Length(8, 150)
   password: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: true })
   @IsNotEmpty()
   @IsBoolean()
   isPasswordReset: boolean;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'This is my signature' })
   @IsOptional()
   @IsString()
   @Length(0, 255)
   signature?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: true })
   @IsNotEmpty()
   @IsBoolean()
   isActive: boolean;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'admin' })
   @IsNotEmpty()
   @IsString()
   role: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: '2022-01-01T00:00:00Z' })
   @IsNotEmpty()
   @IsDateString()
-  // created_at: Date;
   createdAt: Date;
 
-  @ApiProperty()
+  @ApiProperty({ example: '2022-01-01T00:00:00Z' })
   @IsOptional()
   @IsDateString()
-  // updated_at?: Date;
   updatedAt?: Date;
 
-  @ApiProperty()
+  @ApiProperty({ example: '2022-01-01T00:00:00Z' })
   @IsOptional()
   @IsDateString()
-  // deleted_at?: Date;
   deletedAt?: Date;
 
-  @ApiProperty()
+  @ApiProperty({ example: '1234567890' })
   @IsOptional()
   @IsString()
   @Length(0, 20)
