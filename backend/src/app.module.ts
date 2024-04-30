@@ -18,7 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
     TypeOrmModule.forRoot(typeOrmConfig),
     LangModule,
     TypeOrmModule.forFeature([Languages]),
-    JwtModule
+    JwtModule,
   ],
   controllers: [AppController],
   providers: [AppService, LangService],
