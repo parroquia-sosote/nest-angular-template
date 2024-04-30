@@ -30,6 +30,13 @@ export class User {
   role: string;
 
   @Column({
+    name: 'preferred_language_id',
+    type: 'uuid',
+    nullable: true,
+  })
+  preferredLanguageId: string;
+
+  @Column({
     name: 'created_at',
     type: 'timestamp with time zone',
     default: () => 'CURRENT_TIMESTAMP',
