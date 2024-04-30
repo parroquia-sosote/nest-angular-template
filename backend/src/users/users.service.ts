@@ -8,25 +8,23 @@ import { User } from './users.entitiy';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from './dto/users.dto';
-import { DEFAULT_LANG } from '../lang';
-import { LangService } from '../lang/lang.service';
+import getMessages from '../lang/getMessages';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    private readonly languageService: LangService,
   ) {}
 
   async checkPassword(attempt: string, password: string): Promise<boolean> {
     return await bcrypt.compare(attempt, password);
   }
 
-  async create(user: UserDto): Promise<User> {
+  async create(user: UserDto, preferredLanguage?: string): Promise<User> {
     if (await this.userAlreadyExists(user)) {
       throw new ConflictException(
-        this.languageService.getMessages().USER.ALREADY_EXISTS,
+        getMessages(preferredLanguage).USER.ALREADY_EXISTS,
       );
     }
     const newUser = this.userRepository.create({
@@ -84,13 +82,6 @@ export class UsersService {
     return await this.userRepository.findOneOrFail({
       where: { email },
     });
-  }
-
-  async getPreferredLang(userId: string): Promise<string> {
-    const user = await this.findOne(userId);
-    const lang = await this.languageService.getById(user.preferredLanguageId);
-    const langCode = lang ? lang.code : DEFAULT_LANG;
-    return langCode;
   }
 
   async deleteByEmail(email: string): Promise<void> {

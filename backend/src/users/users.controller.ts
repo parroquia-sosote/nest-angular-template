@@ -16,19 +16,23 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import ApiStandardResponse from '../common/interceptors/api-response';
 import getMessages from '../lang/getMessages';
+import Lang from '../lang/lang.type';
 
 @ApiTags('users')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller(`api/${API_VERSION}/users`)
 export class UsersController {
-  private messages: any;
+  private messages: Lang;
   constructor(private readonly userService: UsersService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
-  async create(@Body() userDTO: UserDto) {
-    return await this.userService.create(userDTO);
+  async create(@Body() userDTO: UserDto, @Req() req: any) {
+    const preferredLanguage = req.user.preferredLanguage;
+    const data = await this.userService.create(userDTO, preferredLanguage);
+
+    return new ApiStandardResponse(data, 'this.messages.USER.CREATED');
   }
 
   @Get()
