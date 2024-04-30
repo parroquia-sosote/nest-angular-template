@@ -11,7 +11,10 @@ export class AuthService {
   private isLoggedIn = new BehaviorSubject<boolean>(false);
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private storageService: StorageService) {}
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService
+  ) {}
 
   signUp(credentials: any) {
     return this.http.post(`${this.apiUrl}/auth/signup`, credentials);
