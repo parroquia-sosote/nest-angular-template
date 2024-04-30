@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LangService } from './lang/lang.service';
 import { LangModule } from './lang/lang.module';
 import typeOrmConfig from '../typeorm.config';
+import { Languages } from './lang/lang.entity';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import typeOrmConfig from '../typeorm.config';
     UsersModule,
     TypeOrmModule.forRoot(typeOrmConfig),
     LangModule,
+    TypeOrmModule.forFeature([Languages]),
   ],
   controllers: [AppController],
   providers: [AppService, LangService],

@@ -6,13 +6,13 @@ import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { LangService } from '../lang/lang.service';
 import { DeleteDummyUserMiddleware } from './middleware/delete.dummy.user';
 import { API_VERSION } from '../common/constants';
+import { LangModule } from '../lang/lang.module';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, LangService],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
   imports: [
     UsersModule,
     PassportModule,
@@ -22,6 +22,7 @@ import { API_VERSION } from '../common/constants';
         expiresIn: process.env.JWT_EXPIRES_IN,
       },
     }),
+    LangModule,
   ],
 })
 export class AuthModule {

@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import LANGUAGES from '.';
-import { UsersService } from '../users/users.service';
 import EN from './en';
 import Lang from './lang.type';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Languages } from './lang.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class LangService {
   private lang: any;
   private messages: Lang;
 
-  constructor(private readonly userService: UsersService) {
+  constructor(
+    @InjectRepository(Languages)
+    private readonly languagesRepository: Repository<Languages>,
+  ) {
     this.lang = 'EN';
     this.messages = LANGUAGES[this.lang] || EN;
   }
@@ -25,5 +30,11 @@ export class LangService {
    */
   setLang(lang: string): void {
     this.lang = lang;
+  }
+
+  getById(id: string) {
+    return this.languagesRepository.findOne({
+      where: { id },
+    });
   }
 }
