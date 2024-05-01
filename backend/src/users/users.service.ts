@@ -1,7 +1,9 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
+  Scope,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './users.entitiy';
@@ -9,23 +11,33 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from './dto/users.dto';
 import getMessages from '../lang/getMessages';
+import { Request } from 'express';
+import { REQUEST } from '@nestjs/core';
+import Lang from '../lang/lang.type';
 
-@Injectable()
+@Injectable({
+  scope: Scope.REQUEST,
+})
 export class UsersService {
+  private messages: Lang;
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {}
+    @Inject(REQUEST) private readonly request: Request,
+  ) {
+    const lang =
+      this.request.headers['accept-language'] ||
+      this.request['preferredLanguage'];
+    this.messages = getMessages(lang);
+  }
 
   async checkPassword(attempt: string, password: string): Promise<boolean> {
     return await bcrypt.compare(attempt, password);
   }
 
-  async create(user: UserDto, preferredLanguage?: string): Promise<User> {
+  async create(user: UserDto): Promise<User> {
     if (await this.userAlreadyExists(user)) {
-      throw new ConflictException(
-        getMessages(preferredLanguage).USER.ALREADY_EXISTS,
-      );
+      throw new ConflictException(this.messages.USER.ALREADY_EXISTS);
     }
     const newUser = this.userRepository.create({
       ...user,
