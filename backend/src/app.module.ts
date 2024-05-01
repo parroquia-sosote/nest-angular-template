@@ -5,7 +5,6 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeOrmConfig from '../typeorm.config';
-import { Languages } from './lang/lang.entity';
 import { SetUserPreferredLanguage } from './lang/middleware/lang.middleware';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -14,7 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
     AuthModule,
     UsersModule,
     TypeOrmModule.forRoot(typeOrmConfig),
-    TypeOrmModule.forFeature([Languages]),
+    TypeOrmModule.forFeature([]),
     JwtModule,
   ],
   controllers: [AppController],
