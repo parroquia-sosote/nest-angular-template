@@ -4,6 +4,7 @@ import entities from './src/db/entities';
 import * as dotenv from 'dotenv';
 dotenv.config();
 import { SeederOptions } from 'typeorm-extension';
+import subscribers from './src/db/subscribers';
 
 const migrationsPath = path.join(process.cwd(), 'src/db/migrations/*{.ts}');
 
@@ -19,6 +20,7 @@ const typeOrmConfig: TypeOrmModuleOptions & SeederOptions = {
   // synchronize: true,
   seeds: ['serc/db/seeds/**/*{.ts}'],
   factories: ['src/db/factories/**/*{.ts}'],
+  subscribers: subscribers,
 };
 
 export default typeOrmConfig;

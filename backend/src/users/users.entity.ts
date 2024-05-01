@@ -34,7 +34,7 @@ export class User {
   @Column({
     name: 'preferred_language',
     type: 'varchar',
-    nullable: true,
+    nullable: false,
     default: DEFAULT_LANG,
   })
   preferredLanguage: string;

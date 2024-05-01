@@ -1,7 +1,7 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 import { SeederEntity } from '../seeders.entity';
-import { User } from '../../users/users.entitiy';
+import { User } from '../../users/users.entity';
 import * as bcrypt from 'bcrypt';
 import { DEFAULT_LANG } from '../../lang';
 
