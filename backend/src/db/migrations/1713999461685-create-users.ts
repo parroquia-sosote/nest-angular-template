@@ -70,6 +70,8 @@ export class CreateTableUser1684206622652 implements MigrationInterface {
             type: 'varchar',
             length: '10',
             default: `'${DEFAULT_LANG}'`,
+            enum: ['en', 'es'],
+            enumName: 'preferred_language_enum',
           },
           {
             name: 'created_at',
