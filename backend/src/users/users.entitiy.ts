@@ -1,13 +1,6 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  BeforeInsert,
-} from 'typeorm';
-import { Languages } from '../lang/lang.entity';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { DEFAULT_LANG } from '../lang';
 
 @Entity()
 export class User {
@@ -38,15 +31,13 @@ export class User {
   @Column({ name: 'role', type: 'varchar', length: 50, default: 'user' })
   role: string;
 
-  @ManyToOne(() => Languages, (language) => language.id)
-  @JoinColumn({ name: 'preferred_language_id' })
-  preferredLanguage: Languages;
   @Column({
-    name: 'preferred_language_id',
-    type: 'uuid',
+    name: 'preferred_language',
+    type: 'varchar',
     nullable: true,
+    default: DEFAULT_LANG,
   })
-  preferredLanguageId: string;
+  preferredLanguage: string;
 
   @Column({
     name: 'created_at',

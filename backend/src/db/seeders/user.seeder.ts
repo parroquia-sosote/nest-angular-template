@@ -1,9 +1,9 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 import { SeederEntity } from '../seeders.entity';
-import { Languages } from '../../lang/lang.entity';
 import { User } from '../../users/users.entitiy';
 import * as bcrypt from 'bcrypt';
+import { DEFAULT_LANG } from '../../lang';
 
 export default class UserSeeder implements Seeder {
   public async run(
@@ -13,7 +13,6 @@ export default class UserSeeder implements Seeder {
     console.log('holaaaa');
 
     const seederRepository = dataSource.getRepository(SeederEntity);
-    const languageRepository = dataSource.getRepository(Languages);
     const seederName = 'UserSeeder';
 
     const seeder = await seederRepository.findOne({
@@ -25,9 +24,6 @@ export default class UserSeeder implements Seeder {
       return;
     }
 
-    // get the language id for english
-    const english = await languageRepository.findOne({ where: { code: 'en' } });
-    const englishId = english ? english.id : null;
     const repository = dataSource.getRepository(User);
     await repository.insert([
       {
@@ -38,7 +34,7 @@ export default class UserSeeder implements Seeder {
         createdAt: new Date(),
         updatedAt: new Date(),
         username: 'macluiggy',
-        preferredLanguageId: englishId,
+        preferredLanguage: DEFAULT_LANG,
       },
     ]);
 
@@ -46,16 +42,16 @@ export default class UserSeeder implements Seeder {
 
     const userFactory = factoryManager.get(User);
     userFactory.setMeta({
-      preferredLanguageId: englishId,
+      preferredLanguage: DEFAULT_LANG,
     });
     // save 1 factory generated entity, to the database
     await userFactory.save({
-      preferredLanguageId: englishId,
+      preferredLanguage: DEFAULT_LANG,
     });
 
     // save 5 factory generated entities, to the database
     await userFactory.saveMany(5, {
-      preferredLanguageId: englishId,
+      preferredLanguage: DEFAULT_LANG,
     });
 
     if (seeder) {
