@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     email: '',
     password: '',
   };
+  user: any;
 
   isLoggedIn = false;
   isLoginFailed = false;
@@ -29,34 +30,31 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
     }
+    this.user = this.storageService.getUser();
   }
 
-  onSubmit() {
+  login() {
     const { email, password } = this.form;
 
     this.authService.signIn({ email, password }).subscribe({
       next: (response: any) => {
+        const data = response.data;
         // TODO: change backend to return user object apart from token
-        this.storageService.saveUser(response);
-        // this.storageService.saveToken(response.token);
-        AuthService.setToken(response.access_token);
+        this.storageService.saveUser(data.user);
+        this.user = data.user;
+
+        this.storageService.setToken(data.accessToken);
+
+        this.authService.setIsLoggedIn(true);
 
         this.isLoggedIn = true;
-        this.roles = this.storageService.getUser().roles;
         this.isLoginFailed = false;
-
-        this.reloadPage();
       },
       error: (error) => {
         this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       },
     });
-  }
-
-  reloadPage() {
-    window.location.reload();
   }
 }

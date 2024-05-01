@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
+import * as bcrypt from 'bcrypt';
+import { DEFAULT_LANG } from '../lang';
 
 @Entity()
 export class User {
@@ -30,6 +32,14 @@ export class User {
   role: string;
 
   @Column({
+    name: 'preferred_language',
+    type: 'varchar',
+    nullable: false,
+    default: DEFAULT_LANG,
+  })
+  preferredLanguage: string;
+
+  @Column({
     name: 'created_at',
     type: 'timestamp with time zone',
     default: () => 'CURRENT_TIMESTAMP',
@@ -52,4 +62,10 @@ export class User {
 
   @Column({ name: 'phone', type: 'varchar', length: 100, default: '' })
   phone: string;
+
+  @BeforeInsert()
+  async checkData() {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
 }

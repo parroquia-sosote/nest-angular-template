@@ -1,4 +1,5 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { DEFAULT_LANG } from '../../lang';
 
 export class CreateTableUser1684206622652 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -63,6 +64,14 @@ export class CreateTableUser1684206622652 implements MigrationInterface {
             type: 'varchar',
             length: '200',
             isNullable: true,
+          },
+          {
+            name: 'preferred_language',
+            type: 'varchar',
+            length: '10',
+            default: `'${DEFAULT_LANG}'`,
+            enum: ['en', 'es'],
+            enumName: 'preferred_language_enum',
           },
           {
             name: 'created_at',

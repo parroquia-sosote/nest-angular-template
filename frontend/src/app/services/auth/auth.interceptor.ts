@@ -1,10 +1,16 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
-import { AuthService } from './auth.service';
+import { catchError, tap, throwError } from 'rxjs';
+import { inject } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { StorageService } from '../storage/storage.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // setToken('token');
-  const authToken = AuthService.getToken();
+  const storageService = inject(StorageService);
+  const authToken = storageService.getToken();
+
+  const toarstrService = inject(ToastrService);
+  const router = inject(Router);
 
   // "if" because the endpoint for singup and singin doesn't need the token
   if (authToken) {
@@ -17,6 +23,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(req).pipe(
+    tap((response: any) => {
+      // Handle successful responses
+      const body = response.body;
+      if (body) {
+        const message = body.message;
+        if (message && message !== 'OK') {
+          toarstrService.success(message, '', {});
+        }
+      }
+    }),
     catchError((err: any) => {
       if (err instanceof HttpErrorResponse) {
         // Handle HTTP errors
@@ -24,9 +40,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           // Specific handling for unauthorized errors
           console.error('Unauthorized request:', err);
           // You might trigger a re-authentication flow or redirect the user here
+          router.navigate(['/login']);
         } else {
           // Handle other HTTP error codes
           console.error('HTTP error:', err);
+          toarstrService.error(err.error.message, 'Internal Server Error', {});
         }
       } else {
         // Handle non-HTTP errors

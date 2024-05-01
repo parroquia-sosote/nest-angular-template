@@ -1,18 +1,15 @@
 import { Body, Controller, Post, Req /**, UseGuards */ } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { UsersService } from '../users/users.service';
 import { UserDto } from '../users/dto/users.dto';
 // import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Request } from 'express';
+import ApiStandardResponse from '../common/interceptors/api-response';
 
 @ApiTags('auth')
 @Controller('api/v1/auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UsersService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
   // @UseGuards(LocalAuthGuard)
   @Post('signin')
   async signIn(@Req() req: Request & { user: any }) {
@@ -21,7 +18,8 @@ export class AuthController {
       email: body.email,
       password: body.password,
     };
-    return await this.authService.signIn(user);
+    const data = await this.authService.signIn(user);
+    return new ApiStandardResponse(data);
   }
 
   @Post('signup')

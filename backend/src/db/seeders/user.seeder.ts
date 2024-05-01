@@ -1,9 +1,9 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
-import { entitiesObject } from '../entities';
 import { SeederEntity } from '../seeders.entity';
-
-const { User } = entitiesObject;
+import { User } from '../../users/users.entity';
+import * as bcrypt from 'bcrypt';
+import { DEFAULT_LANG } from '../../lang';
 
 export default class UserSeeder implements Seeder {
   public async run(
@@ -29,22 +29,30 @@ export default class UserSeeder implements Seeder {
       {
         fullName: 'luiggy macias',
         email: 'ferrinluiggy@gmail.com',
-        password: '123456',
+        password: await bcrypt.hash('123456', 10),
         phone: '123456789',
         createdAt: new Date(),
         updatedAt: new Date(),
         username: 'macluiggy',
+        preferredLanguage: DEFAULT_LANG,
       },
     ]);
 
     // ---------------------------------------------------
 
     const userFactory = factoryManager.get(User);
+    userFactory.setMeta({
+      preferredLanguage: DEFAULT_LANG,
+    });
     // save 1 factory generated entity, to the database
-    await userFactory.save();
+    await userFactory.save({
+      preferredLanguage: DEFAULT_LANG,
+    });
 
     // save 5 factory generated entities, to the database
-    await userFactory.saveMany(5);
+    await userFactory.saveMany(5, {
+      preferredLanguage: DEFAULT_LANG,
+    });
 
     if (seeder) {
       seeder.executed = true;

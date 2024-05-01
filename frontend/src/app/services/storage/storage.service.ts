@@ -14,10 +14,29 @@ export class StorageService {
     }
   }
 
+  /**
+   * Only save user when user is logged in, if you want to update user data, use updateUser
+   * @param user
+   */
   public saveUser(user: any): void {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.removeItem(USER_KEY);
       sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+      // save user preferred language
+      this.savePreferredLanguage(user.preferredLanguage);
+    }
+  }
+
+  public updateUser(user: any): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const oldUser = sessionStorage.getItem(USER_KEY);
+      if (oldUser) {
+        const newUser = { ...JSON.parse(oldUser), ...user };
+        sessionStorage.setItem(USER_KEY, JSON.stringify(newUser));
+      }
+
+      // save user preferred language
+      this.savePreferredLanguage(user.preferredLanguage);
     }
   }
 
@@ -41,5 +60,33 @@ export class StorageService {
     }
 
     return false;
+  }
+
+  public setToken(token: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('token', token);
+    }
+  }
+
+  public getToken(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('token') || '';
+    }
+
+    return '';
+  }
+
+  public savePreferredLanguage(language: string): void {
+    if (isPlatformBrowser(this.platformId) && language) {
+      localStorage.setItem('language', language);
+    }
+  }
+
+  public getPreferredLanguage(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('language') || '';
+    }
+
+    return '';
   }
 }

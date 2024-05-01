@@ -7,22 +7,27 @@ meta {
 post {
   url: {{base_url}}/users
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
 }
 
 body:json {
   {
-      "fullName": "John Doe",
-      "email": "example@example.com",
-      "password": "password",
-      "phone": "1234567890"
+    "username": "jonhdoe",
+    "fullName": "John Doe",
+    "email": "example@example.com",
+    "password": "password",
+    "phone": "1234567890"
   }
 }
 
 docs {
   # Create User
   This API is used to create a new user.
-
+  
   ## Request
   - Method: `POST`
   - URL: `{{base_url}}/users`
@@ -35,7 +40,7 @@ docs {
         "email": "example@mail.com",
         "password": "password",
         "phone": "1234567890"
-
+  
     }
     ```
   ## Response
@@ -51,7 +56,7 @@ docs {
         "updatedAt": "2021-08-01T12:00:00Z"
     }
     ```
-
+  
   ## Error
   - Status: `400 Bad Request`
   - Body:
