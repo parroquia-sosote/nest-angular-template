@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './users.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from './dto/users.dto';
 import getMessages from '../lang/getMessages';
@@ -24,6 +24,7 @@ export class UsersService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     @Inject(REQUEST) private readonly request: Request,
+    private dataSource: DataSource,
   ) {
     const lang =
       this.request.headers['accept-language'] ||
@@ -36,13 +37,25 @@ export class UsersService {
   }
 
   async create(user: UserDto): Promise<User> {
-    if (await this.userAlreadyExists(user)) {
-      throw new ConflictException(this.messages.USER.ALREADY_EXISTS);
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      if (await this.userAlreadyExists(user)) {
+        throw new ConflictException(this.messages.USER.ALREADY_EXISTS);
+      }
+      const newUser = this.userRepository.create({
+        ...user,
+      });
+      // return await this.userRepository.save(newUser);
+      const data = await queryRunner.manager.save(newUser);
+      await queryRunner.commitTransaction();
+      return data;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
     }
-    const newUser = this.userRepository.create({
-      ...user,
-    });
-    return await this.userRepository.save(newUser);
   }
 
   async userAlreadyExists({ email, username }: UserDto): Promise<boolean> {
