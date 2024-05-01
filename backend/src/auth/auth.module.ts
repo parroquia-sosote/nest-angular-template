@@ -8,7 +8,6 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { DeleteDummyUserMiddleware } from './middleware/delete.dummy.user';
 import { API_VERSION } from '../common/constants';
-import { LangModule } from '../lang/lang.module';
 
 @Module({
   controllers: [AuthController],
@@ -22,7 +21,6 @@ import { LangModule } from '../lang/lang.module';
         expiresIn: process.env.JWT_EXPIRES_IN,
       },
     }),
-    LangModule,
   ],
 })
 export class AuthModule {
